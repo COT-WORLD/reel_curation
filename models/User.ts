@@ -30,6 +30,6 @@ userSchema.pre("save", async function (next) {
     this.password = await bcrypt.hash(this.password, 10);
 }); 
 
-const User = models?.user || model<IUser>("User", userSchema);
+const User = models?.User || model<IUser>("User", userSchema);
 
 export default User;

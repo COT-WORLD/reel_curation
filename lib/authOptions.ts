@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
                     placeholder: "password"
                 }
             },
-            async authorize(credentials)
+            async authorize(credentials, req): Promise<any>
             {
                 if(!credentials?.email || !credentials?.password){    
                     throw new Error("Email and password are required")
@@ -29,13 +29,13 @@ export const authOptions: NextAuthOptions = {
                     await dbConnect();
                     const user = await User.findOne({email: credentials.email});
                     if(!user){
-                        return new Error("User not found")
+                        throw new Error("User not found")
                     }
                     const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
                     if(!isPasswordCorrect){
-                        return new Error("Invalid password")    
+                        throw new Error("Invalid password")    
                     }
-                    return {id: user._id.toString(), email: user.email}    
+                    return {id: user._id.toString(), email: user.email}
                 } catch (error) {
                     throw error
                 }
