@@ -11,7 +11,7 @@ export async function GET() {
     try {
         return NextResponse.json(imagekit.getAuthenticationParameters());
     } catch (error) {
-        return NextResponse.json({ error: "Failed to get authentication parameters from I magekit" }, { status: 500 });
+        return NextResponse.json({ error: `Failed to get authentication parameters from I magekit: ${error}` }, { status: 500 });
     }
   
 }

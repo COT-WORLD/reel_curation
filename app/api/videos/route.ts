@@ -2,7 +2,6 @@ import { authOptions } from "@/lib/authOptions";
 import { dbConnect } from "@/lib/db";
 import Video, { IVideo } from "@/models/Video";
 import { getServerSession } from "next-auth";
-import { transform } from "next/dist/build/swc/generated-native";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
@@ -14,7 +13,7 @@ export async function GET() {
        }
        return NextResponse.json(videos, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ error: "Failed to fetch videos" }, { status: 400 });
+        return NextResponse.json({ error: `Failed to fetch videos: ${error}` }, { status: 400 });
     }
 }
 
@@ -33,6 +32,6 @@ export async function POST(request: NextRequest) {
         const video = await Video.create(videoData);
         return NextResponse.json(video, { status: 201 });
     } catch (error) {
-        return NextResponse.json({ error: "Failed to create a video" }, { status: 200 });
+        return NextResponse.json({ error: `Failed to create a video: ${error}` }, { status: 200 });
     }
 }

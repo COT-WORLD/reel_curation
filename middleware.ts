@@ -10,7 +10,6 @@ export default withAuth(
         if ((req.nextUrl.pathname.startsWith('/login') || req.nextUrl.pathname.startsWith('/register')) && isAuthenticated) {
             return NextResponse.redirect(new URL('/', req.url));
         }
-        return NextResponse.next();
     },
     {
         callbacks: {

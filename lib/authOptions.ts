@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
                     placeholder: "password"
                 }
             },
-            async authorize(credentials, req): Promise<any>
+            async authorize(credentials)
             {
                 if(!credentials?.email || !credentials?.password){    
                     throw new Error("Email and password are required")
